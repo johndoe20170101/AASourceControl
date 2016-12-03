@@ -67,14 +67,14 @@ catch {
  
         #Check the status property of the VM
         Write-Output "Status of VM before taking action"
-        $armVM = Get-AzureRMVM -Status | ?{$_.Name -eq $AlertContext.resourceName}
+        $armVM = Get-AzureRMVM -Status -ResourceGroupName $AlertContext.resourceGroupName -Name $AlertContext.resourceName
         $armVM.PowerState
         Write-Output "Restarting VM"
  
         # Restart the VM by passing VM name and Service name which are same in this case
         $armVM | Restart-azureRMVM
         Write-Output "Status of VM after alert is active and takes action"
-        $armVM = Get-AzureRMVM -Status | ?{$_.Name -eq $AlertContext.resourceName}
+        $armVM = Get-AzureRMVM -Status -ResourceGroupName $AlertContext.resourceGroupName -Name $AlertContext.resourceName
         $armVM.PowerState
     } 
     else  
